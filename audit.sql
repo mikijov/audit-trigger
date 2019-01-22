@@ -47,6 +47,7 @@ CREATE TABLE audit.logged_actions (
     action_tstamp_clk TIMESTAMP WITH TIME ZONE NOT NULL,
     transaction_id bigint,
     application_name text,
+    fx_user_id integer,
     client_addr inet,
     client_port integer,
     client_query text,
@@ -105,6 +106,7 @@ BEGIN
         clock_timestamp(),                            -- action_tstamp_clk
         txid_current(),                               -- transaction ID
         current_setting('application_name'),          -- client application
+        current_setting('fx.user_id'),                -- custom user id
         inet_client_addr(),                           -- client_addr
         inet_client_port(),                           -- client_port
         current_query(),                              -- top-level query or queries (if multistatement) from client
